@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="CookingBookWPF.Components.Filters"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewmodels="clr-namespace:CookingBookWPF.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600"
+             d:DesignWidth="290"
+             d:Background="{StaticResource defaultAccentColor}">
+    <UserControl.DataContext>
+        <viewmodels:FiltersVM/>
+    </UserControl.DataContext>
+    <Border BorderThickness="1"
+            BorderBrush="Black"
+            CornerRadius="5"
+            Margin="10, 10, 1, 10"
+            VerticalAlignment="Top">
+        <StackPanel Margin="10" Height="Auto">
+            <TextBlock Text="Название"
+                       Style="{StaticResource FilterFont}"/>
+            <TextBox Text="{Binding Name}"
+                     d:Text="Бутерброды"
+                     Style="{StaticResource DefaultTextBox}"
+                     FontWeight="Regular"
+                     Height="30"
+                     FontSize="15"
+                     Padding="0"
+                     VerticalContentAlignment="Center"/>
+            <TextBlock Text="Кухня"
+                       Style="{StaticResource FilterFont}"/>
+            <ComboBox ItemsSource="{Binding Cuisines}"
+                      SelectedItem="{Binding SelectedCuisine}"
+                      BorderBrush="{DynamicResource mComboForegroundBrush}"
+                      Style="{StaticResource ComboBoxFlatStyle}"/>
+            <TextBlock Text="Время приготовления"
+                       Style="{StaticResource FilterFont}"/>
+            <ComboBox ItemsSource="{Binding CookingTimes}"
+                      SelectedItem="{Binding SelectedCookingTime}"
+                      BorderBrush="{DynamicResource mComboForegroundBrush}"
+                      Style="{StaticResource ComboBoxFlatStyle}"/>
+            <TextBlock Text="Категория"
+                       Style="{StaticResource FilterFont}"/>
+            <ComboBox ItemsSource="{Binding Categories}"
+                      SelectedItem="{Binding SelectedCategory}"
+                      BorderBrush="{DynamicResource mComboForegroundBrush}"
+                      Style="{StaticResource ComboBoxFlatStyle}"/>
+            <TextBlock Text="Сложность"
+                       Style="{StaticResource FilterFont}"/>
+            <ComboBox ItemsSource="{Binding Difficulties}"
+                      SelectedItem="{Binding SelectedDifficulty}"
+                      BorderBrush="{DynamicResource mComboForegroundBrush}"
+                      Style="{StaticResource ComboBoxFlatStyle}"/>
+            <TextBlock Text="Сортировка"
+                       Style="{StaticResource FilterFont}"/>
+            <ComboBox ItemsSource="{Binding Sortings}"
+                      SelectedItem="{Binding SelectedSort}"
+                      BorderBrush="{DynamicResource mComboForegroundBrush}"
+                      Style="{StaticResource ComboBoxFlatStyle}"/>
+            <TextBlock Text="Ингредиенты
+                             (каждый с новой строки)"
+                       Style="{StaticResource FilterFont}"/>
+            <TextBox Text="{Binding Ingredients, UpdateSourceTrigger=PropertyChanged}"
+                     d:Text="Мука"
+                     AcceptsReturn="True"
+                     Style="{StaticResource DefaultTextBox}"
+                     FontWeight="Regular"
+                     Height="60"
+                     FontSize="15"
+                     Padding="0"
+                     VerticalContentAlignment="Top"/>
+            <Button Content="Применить"
+                    Style="{StaticResource FilterButton}"
+                    Command="{Binding ApplyFilters}"
+                    Background="{DynamicResource goodButtonColor}"
+                    Foreground="White"
+                    Width="auto"
+                    Margin="0, 15, 0, 0"/>
+            <Button Content="Сбросить"
+                    Style="{StaticResource FilterButton}"
+                    Command="{Binding ResetFilters}"
+                    Width="auto"
+                    Background="{DynamicResource badButtonColor}"/>
+        </StackPanel>
+    </Border>
+</UserControl>

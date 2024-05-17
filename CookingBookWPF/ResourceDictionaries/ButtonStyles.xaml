@@ -1,0 +1,424 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:converters="clr-namespace:CookingBookWPF.Converters">
+
+
+    <!--Кнопка закрытия приложения CloseButton-->
+    <Style TargetType="{x:Type Button}" 
+           x:Key="CloseButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="Border" 
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Background" 
+                                    Value="{DynamicResource closeColor}" 
+                                    TargetName="Border"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Кнопка навигации NavigationButton-->
+    <Style TargetType="{x:Type Button}"
+           x:Key="NavigationButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border>
+                        <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Cursor"
+                Value="Hand"/>
+        <Setter Property="FontFamily"
+                Value="Verdana"/>
+        <Setter Property="FontSize"
+                Value="20"/>
+        <Setter Property="FontWeight"
+                Value="Bold"/>
+        <Setter Property="VerticalContentAlignment"
+                Value="Center"/>
+        <Setter Property="Foreground"
+                Value="{DynamicResource defaultTextColor}"/>
+        <Setter Property="Command"
+                Value="{Binding SetMode}"/>
+        <Setter Property="CommandParameter"
+                Value="{Binding RelativeSource={RelativeSource self}, Path=Content}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource buttonNavigationHover}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Кнопка окон авторизации AuthorizationButton-->
+    <Style TargetType="{x:Type Button}" 
+           x:Key="AuthorizationButton">
+        <Setter Property="Background" 
+                Value="{DynamicResource buttonColor}"/>
+        <Setter Property="FontFamily" 
+                Value="Verdana"/>
+        <Setter Property="FontSize" 
+                Value="18"/>
+        <Setter Property="Height"
+                Value="60"/>
+        <Setter Property="Width" 
+                Value="150"/>
+        <Setter Property="Foreground"
+                Value="{DynamicResource defaultTextColor}"/>
+        <Setter Property="BitmapEffect">
+            <Setter.Value>
+                <DropShadowBitmapEffect Color="{DynamicResource defaultShadowColor}"
+                                        Direction="270" 
+                                        Softness="0.2" 
+                                        ShadowDepth="2" 
+                                        Opacity="0.2" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="Border" 
+                            Background="{TemplateBinding Background}" 
+                            CornerRadius="10">
+                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" 
+                                 Value="True">
+                            <Setter Property="Cursor" 
+                                    Value="Hand" 
+                                    TargetName="Border"/>
+                            <Setter Property="Background" 
+                                    Value="{DynamicResource ResourceKey=buttonHover}" 
+                                    TargetName="Border"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" 
+                                 Value="True">
+                            <Setter Property="Background" 
+                                        Value="{DynamicResource ResourceKey=buttonClick}" 
+                                        TargetName="Border"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" 
+                                ScaleY="1"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransformOrigin" 
+                Value="0.5, 0.5"/>
+
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonDown">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                         To="0.97"
+                                         Duration="0:0:0.05"/>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                         To="0.97"
+                                         Duration="0:0:0.05"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonUp">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                         To="1" 
+                                         Duration="0:0:0.05"/>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                         To="1" 
+                                         Duration="0:0:0.05"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Кнопка профиля ProfileButton-->
+    <Style TargetType="{x:Type Button}" 
+           x:Key="ProfileButton">
+        <Setter Property="Background" 
+                Value="{DynamicResource badButtonColor}"/>
+        <Setter Property="FontFamily" 
+                Value="Verdana"/>
+        <Setter Property="FontSize" 
+                Value="14"/>
+        <Setter Property="Foreground"
+                Value="{DynamicResource defaultTextColor}"/>
+        <Setter Property="Height"
+                Value="30"/>
+        <Setter Property="Margin"
+                Value="5, 0"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{DynamicResource defaultShadowColor}"
+                                  Direction="270" 
+                                  ShadowDepth="2" 
+                                  Opacity="0.2" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="Border" 
+                        Background="{TemplateBinding Background}" 
+                        CornerRadius="10">
+                        <ContentPresenter HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" 
+                             Value="True">
+                            <Setter Property="Cursor" 
+                                Value="Hand" 
+                                TargetName="Border"/>
+                            <Setter Property="Background" 
+                                Value="{DynamicResource buttonHover}" 
+                                TargetName="Border"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" 
+                             Value="True">
+                            <Setter Property="Background" 
+                                    Value="{DynamicResource ResourceKey=buttonClick}" 
+                                    TargetName="Border"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="Background"
+                                    Value="{DynamicResource buttonDisabled}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" 
+                            ScaleY="1"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransformOrigin" 
+            Value="0.5, 0.5"/>
+
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonDown">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                     To="0.97"
+                                     Duration="0:0:0.05"/>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                     To="0.97"
+                                     Duration="0:0:0.05"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonUp">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                     To="1" 
+                                     Duration="0:0:0.05"/>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                     To="1" 
+                                     Duration="0:0:0.05"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!--Кнопка в окне фильтрации FilterButton-->
+    <Style TargetType="{x:Type Button}" 
+       x:Key="FilterButton">
+        <Setter Property="Background" 
+            Value="{DynamicResource buttonColor}"/>
+        <Setter Property="FontFamily" 
+            Value="Verdana"/>
+        <Setter Property="FontSize" 
+            Value="18"/>
+        <Setter Property="Height"
+                Value="45"/>
+        <Setter Property="Margin"
+                Value="0, 10"/>
+        <Setter Property="Foreground"
+                Value="{DynamicResource filterButtonTextColor}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="Border" 
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" 
+                                 Value="True">
+                            <Setter Property="Cursor" 
+                                Value="Hand" 
+                                TargetName="Border"/>
+                            <Setter Property="Background" 
+                                Value="{DynamicResource buttonHover}" 
+                                TargetName="Border"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" 
+                                 Value="True">
+                            <Setter Property="Background" 
+                                    Value="{DynamicResource buttonClick}" 
+                                    TargetName="Border"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" 
+                            ScaleY="1"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransformOrigin" 
+            Value="0.5, 0.5"/>
+
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonDown">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                         To="0.97"
+                                         Duration="0:0:0.05"/>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                         To="0.97"
+                                         Duration="0:0:0.05"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonUp">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                         To="1" 
+                                         Duration="0:0:0.05"/>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                         To="1" 
+                                         Duration="0:0:0.05"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Кнопка для добавления и тд шагов и ингредиентов-->
+    <Style TargetType="Button"
+           x:Key="stepButton">
+        <Setter Property="Background"
+                Value="White"/>
+        <Setter Property="FontFamily"
+                Value="Verdana"/>
+        <Setter Property="FontSize"
+                Value="25"/>    
+        <Setter Property="Width"
+                Value="50"/>
+        <Setter Property="Height"
+                Value="50"/>
+        <Setter Property="Foreground"
+                Value="{DynamicResource red}"/>
+        <Setter Property="RenderTransformOrigin"
+                Value="0.5, 0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" ScaleY="1"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="25" BorderBrush="{DynamicResource defaultTextHelpColor}" BorderThickness="1">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background"
+                                        Value="{DynamicResource defaultColor}"/>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="10" Color="{DynamicResource defaultShadowColor}"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Cursor"
+                                        Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="True">
+                                        <Setter Property="Background"
+                                                Value="LightGray"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Border.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground"
+                                        Value="red"/>
+                            </Style>
+                        </Border.Resources>
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonDown">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                 To="0.97"
+                                 Duration="0:0:0.05"/>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                 To="0.97"
+                                 Duration="0:0:0.05"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonUp">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                 To="1" 
+                                 Duration="0:0:0.05"/>
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                 To="1" 
+                                 Duration="0:0:0.05"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--не помню( buttonText-->
+    <Style TargetType="TextBlock"
+               x:Key="buttonText">
+        <Setter Property="Foreground"
+                Value="{DynamicResource defaultTextHelpColor}"/>
+    </Style>
+        
+</ResourceDictionary>

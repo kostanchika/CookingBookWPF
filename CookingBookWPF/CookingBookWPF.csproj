@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\back.png" />
+    <None Remove="Resources\Backg.jpg" />
+    <None Remove="Resources\bbb.jpg" />
+    <None Remove="Resources\catalog.jpg" />
+    <None Remove="Resources\catalogDarkTheme.png" />
+    <None Remove="Resources\hamburger\catalog.jpg" />
+    <None Remove="Resources\hamburger\home.png" />
+    <None Remove="Resources\hamburger\Logout.png" />
+    <None Remove="Resources\hamburger\plus.png" />
+    <None Remove="Resources\hamburger\profile.png" />
+    <None Remove="Resources\hamburger\settings.png" />
+    <None Remove="Resources\hamburger\settingsDarkTheme.png" />
+    <None Remove="Resources\home.png" />
+    <None Remove="Resources\like.png" />
+    <None Remove="Resources\lips.png" />
+    <None Remove="Resources\lips2.png" />
+    <None Remove="Resources\logo.png" />
+    <None Remove="Resources\Logout.png" />
+    <None Remove="Resources\malmal.png" />
+    <None Remove="Resources\password.ttf" />
+    <None Remove="Resources\plus.png" />
+    <None Remove="Resources\profile.png" />
+    <None Remove="Resources\settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="ResourceDictionaries\Combobox.xaml" />
+    <Page Remove="ResourceDictionaries\TextStyles.xaml" />
+    <Page Remove="ResourceDictionaries\Theme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HamburgerMenu" Version="0.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.5" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+    <PackageReference Include="RoyWpf.Behaviors.MessengerSendAction" Version="0.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="ResourceDictionaries\Combobox.xaml" />
+    <Resource Include="ResourceDictionaries\Theme.xaml" />
+    <Resource Include="ResourceDictionaries\TextStyles.xaml" />
+    <Resource Include="Resources\back.png" />
+    <Resource Include="Resources\bbb.jpg" />
+    <Resource Include="Resources\hamburger\catalog.jpg" />
+    <Resource Include="Resources\hamburger\home.png" />
+    <Resource Include="Resources\hamburger\Logout.png" />
+    <Resource Include="Resources\hamburger\plus.png" />
+    <Resource Include="Resources\hamburger\profile.png" />
+    <Resource Include="Resources\lips.png" />
+    <Resource Include="Resources\lips2.png" />
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\malmal.png" />
+    <Resource Include="Resources\password.ttf" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,257 @@
+﻿<UserControl x:Class="CookingBookWPF.Views.Profile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewmodels="clr-namespace:CookingBookWPF.ViewModels" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="706" 
+             d:DesignWidth="1391"
+             Background="{DynamicResource defaultBackground}"
+             d:DataContext="{d:DesignInstance {x:Type viewmodels:ProfileVM}}">
+    <UserControl.DataContext>
+        <viewmodels:ProfileVM/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.35*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3.1*"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0"
+                Grid.Row="0"
+                Padding="15"
+                Background="{DynamicResource defaultColor}"
+                VerticalAlignment="Top"
+                Margin="20, 20, 0, 0">
+            <Border.Effect>
+                <DropShadowEffect Color="{DynamicResource defaultShadowColor}" ShadowDepth="10" Opacity="0.5" Direction="320"/>
+            </Border.Effect>
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="TextBox"
+                           BasedOn="{StaticResource profileInfoBigText}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChanging}" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <TranslateTransform X="0" Y="-1"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Resources>
+                <Border Width="200"
+                        Height="200"
+                        Margin="0, 0, 0, -200"
+                        Background="Black"
+                        Panel.ZIndex="2"
+                        CornerRadius="100"
+                        Cursor="Hand"
+                        Visibility="{Binding IsChanging, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding ChoosePhoto}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Opacity"
+                                    Value="0.4"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="Opacity"
+                                            Value="0.3"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+                <Border Width="200"
+                        Height="200"
+                        VerticalAlignment="Top"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        CornerRadius="100"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource defaultTextColor}"
+                        DockPanel.Dock="Top"
+                        Margin="0, 0, 0, 10">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding CookerProfile.Avatar}"
+                                    d:ImageSource="pack://application:,,,/Resources/DefaultAvatar.jpg"
+                                    Stretch="UniformToFill"/>
+                    </Border.Background>
+                </Border>
+                <TextBlock Text="Название (максимум 50 символов)"
+                           Style="{StaticResource profileInfoText}"
+                           TextAlignment="Center"
+                           Margin="0, 0, 0, 10"
+                           Visibility="{Binding IsChanging, Converter={StaticResource BoolToVisibilityCollapsedConverter}}"/>
+                <TextBox Text="{Binding CookerProfile.ProfileName, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsChanging}"
+                         d:Text="Любава Викторовна"
+                         FontFamily="Comic Sans MS"
+                         FontSize="18"
+                         TextWrapping="Wrap"
+                         TextAlignment="Center"
+                         Margin="-1, 0, -1, 10"
+                         Foreground="{DynamicResource defaultTextColor}"
+                         MaxLength="50"/>
+                <TextBlock Text="Слоган (максимум 50 символов)"
+                           Style="{StaticResource profileInfoText}"
+                           TextAlignment="Center"
+                           Margin="0, 0, 0, 10"
+                           Visibility="{Binding IsChanging, Converter={StaticResource BoolToVisibilityCollapsedConverter}}"/>
+                <TextBox Text="{Binding CookerProfile.Slogan, UpdateSourceTrigger=PropertyChanged}" 
+                         d:Text="Готовим быстро и легко"
+                         FontFamily="Comic Sans MS"
+                         FontSize="16"
+                         TextWrapping="Wrap"
+                         TextAlignment="Center"
+                         Foreground="{DynamicResource defaultTextHelpColor}"
+                         IsEnabled="{Binding IsChanging}"
+                         MaxLength="50">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox"
+                               BasedOn="{StaticResource profileInfoBigText}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChanging}" 
+                                             Value="True">
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <TranslateTransform X="0" Y="-3"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Margin"
+                                            Value="0, 3, 0, 11"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <Button Command="{Binding OpenChangeProfile}"
+                        Content="{Binding EditButton}"
+                        Visibility="{Binding IsOwner, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Margin="0, 0, 0, -30">
+                    <Button.Style>
+                        <Style TargetType="Button"
+                               BasedOn="{StaticResource ProfileButton}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChanging}"
+                                             Value="True">
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Command="{Binding CreateSubscription}"
+                        Content="{Binding SubButton}"
+                        d:Content="Подписаться"
+                        Visibility="{Binding IsOwner, Converter={StaticResource AntiBoolToVisibilityConverter}}"
+                        Style="{StaticResource ProfileButton}"
+                        Margin="0, 0, 0, 10"/>
+                <TextBlock Text="{Binding SubCount}"
+                           d:Text="2 подписчика"
+                           FontFamily="Comic Sans MS"
+                           FontSize="13"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           Foreground="{DynamicResource defaultTextHelpColor}"
+                           DockPanel.Dock="Bottom"
+                           Margin="0, 0, 0, 0">
+                </TextBlock>
+            </StackPanel>
+        </Border>
+        <Border Background="{DynamicResource mComboBackgroundBrush}"
+                Margin="20"
+                Padding="15"
+                Grid.Column="1"
+                Grid.Row="0"
+                Grid.RowSpan="2">
+            <Border.Effect>
+                <DropShadowEffect Color="{DynamicResource defaultShadowColor}" ShadowDepth="10" Opacity="0.5" Direction="320"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2.7*"/>
+                </Grid.ColumnDefinitions>
+                <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Hidden">
+                    <StackPanel Grid.Column="0">
+                        <TextBlock>
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource profileInfoText}">
+                                    <Setter Property="Text"
+                                            Value="Имя"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChanging}"
+                                                     Value="True">
+                                            <Setter Property="Text"
+                                                    Value="Имя(необязательно)"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBox Text="{Binding CookerProfile.FullName, UpdateSourceTrigger=PropertyChanged}"
+                                 d:Text="Буснюк Любовь Викторовна"
+                                 IsEnabled="{Binding IsChanging}"
+                                 Style="{StaticResource profileInfoBigText}"
+                                 MaxLength="50"/>
+                        <TextBlock>
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource profileInfoText}">
+                                    <Setter Property="Text"
+                                            Value="Место работы"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChanging}"
+                                                     Value="True">
+                                            <Setter Property="Text"
+                                                    Value="Место работы(необязательно)"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBox Text="{Binding CookerProfile.JobPlace, UpdateSourceTrigger=PropertyChanged}"
+                                 d:Text="Кухня Гордона"
+                                 IsEnabled="{Binding IsChanging}"
+                                 Style="{StaticResource profileInfoBigText}"
+                                 MaxLength="50"/>
+                        <TextBlock Text="О себе"
+                                   Style="{StaticResource profileInfoText}"/>
+                        <TextBox Text="{Binding CookerProfile.Description, UpdateSourceTrigger=PropertyChanged}"
+                                 IsEnabled="{Binding IsChanging}"
+                                 AcceptsReturn="True"
+                                 d:Text="Я прекрасный повар"
+                                 Style="{StaticResource profileInfoBigText}"
+                                 MaxLength="500"/>
+                    </StackPanel>
+                </ScrollViewer>
+                <TextBlock Grid.Column="1" 
+                           Text="Рецепты"
+                           Style="{StaticResource profileInfoText}"
+                           Margin="20, -10, 0, 0"/>
+                <ListBox Grid.Column="1"
+                         Grid.Row="0"
+                         ItemsSource="{Binding Recipes}"
+                         Style="{StaticResource recipeList}"
+                         Padding="0, 7, 0, 0">
+                <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="2"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

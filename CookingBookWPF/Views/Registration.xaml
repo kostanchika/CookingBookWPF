@@ -1,0 +1,211 @@
+﻿<UserControl x:Class="CookingBookWPF.Views.Registration"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CookingBookWPF.Views" 
+             xmlns:viewmodels="clr-namespace:CookingBookWPF.ViewModels" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             d:DataContext="{d:DesignInstance Type=viewmodels:AuthorizationVM}"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" 
+             d:DesignWidth="1390"
+             Margin="-50, 0, 0, 0"
+             Background="{DynamicResource defaultBackground}"
+             DataContext="{StaticResource authVM}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Background="{DynamicResource defaultColor}">
+            <Border Padding="50, 50"
+                    Background="{DynamicResource defaultColor}"
+                    VerticalAlignment="Top">
+                <StackPanel Visibility="{Binding IsCooker, Converter={StaticResource BoolToVisibilityConverter}}"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            Height="600">
+                    <Border Width="200"
+                            Height="200"
+                            Margin="0, 0, 0, -200"
+                            Background="Black"
+                            Panel.ZIndex="2"
+                            CornerRadius="100"
+                            Cursor="Hand">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding ChoosePhoto}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Opacity"
+                                    Value="0.4"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                        <Setter Property="Opacity"
+                                            Value="0.3"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <Border Width="200"
+                            Height="200"
+                            VerticalAlignment="Top"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            CornerRadius="100"
+                            BorderThickness="1"
+                            BorderBrush="{DynamicResource defaultTextColor}"
+                            DockPanel.Dock="Top"
+                            Margin="0, 0, 0, 10">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding RegisteringUser.CookerProfile.Avatar, UpdateSourceTrigger=PropertyChanged}"
+                                        d:ImageSource="pack://application:,,,/Resources/DefaultAvatar.jpg"
+                                        Stretch="UniformToFill"/>
+                        </Border.Background>
+                    </Border>
+                    <TextBlock Text="Имя профиля (максимум 50 символов)"
+                               Style="{StaticResource profileInfoText}"
+                               Margin="0, 10, 0, 5"/>
+                    <TextBox Text="{Binding RegisteringUser.CookerProfile.ProfileName, UpdateSourceTrigger=PropertyChanged}"
+                             d:Text="Любава Викторовна"
+                             FontFamily="Comic Sans MS"
+                             FontSize="18"
+                             TextWrapping="Wrap"
+                             TextAlignment="Center"
+                             Margin="0, 0, 0, 0"
+                             Foreground="{DynamicResource defaultTextColor}"
+                             Style="{StaticResource profileInfoBigText}"
+                             MaxLength="50"/>
+                    <TextBlock Text="Слоган (максимум 50 символов, необязательно)"
+                               Style="{StaticResource profileInfoText}"
+                               Margin="0, 10, 0, 5"/>
+                    <TextBox Text="{Binding RegisteringUser.CookerProfile.Slogan, UpdateSourceTrigger=PropertyChanged}" 
+                             d:Text="Готовим быстро и легко"
+                             FontFamily="Comic Sans MS"
+                             FontSize="18"
+                             TextWrapping="Wrap"
+                             TextAlignment="Center"
+                             Foreground="{DynamicResource defaultTextColor}"
+                             Style="{StaticResource profileInfoBigText}"
+                             Margin="0, 0, 0, 0"
+                             MaxLength="50"/>
+                    <TextBlock Text="Имя (максимум 50 символов, необзяталельно)"
+                               Style="{StaticResource profileInfoText}"
+                               Margin="0, 10, 0, 5"/>
+                    <TextBox Text="{Binding RegisteringUser.CookerProfile.FullName, UpdateSourceTrigger=PropertyChanged}" 
+                             d:Text="Буснюк Ольга Викторовна"
+                             FontFamily="Comic Sans MS"
+                             FontSize="18"
+                             TextWrapping="Wrap"
+                             TextAlignment="Center"
+                             Foreground="{DynamicResource defaultTextColor}"
+                             Style="{StaticResource profileInfoBigText}"
+                             Margin="0"
+                             MaxLength="50"/>
+                    <TextBlock Text="Место работы (максимум 50 символов, необзяталельно)"
+                               Style="{StaticResource profileInfoText}"
+                               Margin="0, 10, 0, 5"/>
+                    <TextBox Text="{Binding RegisteringUser.CookerProfile.JobPlace, UpdateSourceTrigger=PropertyChanged}" 
+                             d:Text="Кухня гордона"
+                             Style="{StaticResource profileInfoBigText}"
+                             Margin="0"
+                             FontFamily="Comic Sans MS"
+                             FontSize="18"
+                             TextWrapping="Wrap"
+                             TextAlignment="Center"
+                             Foreground="{DynamicResource defaultTextColor}"
+                             MaxLength="50"/>
+                    <TextBlock Text="О себе (максимум 500 символов)"
+                               Style="{StaticResource profileInfoText}"
+                               Margin="0, 10, 0, 5"/>
+                    <TextBox Text="{Binding RegisteringUser.CookerProfile.Description, UpdateSourceTrigger=PropertyChanged}" 
+                             d:Text="Очень много"
+                             Style="{StaticResource profileInfoBigText}"
+                             Margin="0"
+                             FontFamily="Comic Sans MS"
+                             FontSize="18"
+                             TextWrapping="Wrap"
+                             TextAlignment="Center"
+                             Foreground="{DynamicResource defaultTextColor}"
+                             MaxLength="500"
+                             MaxHeight="100"/>
+                </StackPanel>
+            </Border>
+        </Border>
+        <Border Grid.Column="1" Background="{DynamicResource defaultAccentColor}">
+            <StackPanel HorizontalAlignment="Center"
+                        Width="500"
+                        Height="500">
+                <TextBlock Text="Регистрация"
+                           FontFamily="Verdana"
+                           FontSize="40"
+                           TextAlignment="Center"
+                           Margin="0, 0, 0, 30"/>
+                <TextBlock FontSize="30" 
+                           FontFamily="Verdana"
+                           Foreground="{DynamicResource defaultTextHelpColor}"
+                           Text="Логин"/>
+                <TextBox FontSize="40" 
+                         Margin="0, 10, 0, 10"
+                         FontWeight="Regular"
+                         VerticalContentAlignment="Center"
+                         Style="{StaticResource DefaultTextBox}"
+                         MaxLength="23"
+                         Text="{Binding RegisteringUser.Login, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="{Binding LoginError}"
+                           Style="{StaticResource AuthorizationError}"/>
+                <TextBlock FontSize="30"
+                           FontFamily="Verdana"
+                           Foreground="{DynamicResource defaultTextHelpColor}"
+                           Text="Пароль"/>
+                <TextBox FontSize="40" 
+                         Text="{Binding RegisteringUser.Password}"
+                         Margin="0, 10, 0, 10"
+                         FontWeight="Regular"
+                         MaxLength="23"
+                         Style="{StaticResource DefaultTextBox}"
+                         VerticalContentAlignment="Bottom"/>
+                <TextBlock Text="{Binding PasswordError}" Style="{StaticResource AuthorizationError}"/>
+                <TextBlock TextAlignment="Center"
+                           Height="50">
+                    <TextBlock Text="Я кулинар"
+                               Style="{StaticResource AuthorizationTextBlock}"
+                               Margin="0, -10"/>
+                    <CheckBox Style="{StaticResource Toggle}"
+                              Width="100"
+                              Margin="0, 0, 0, 0"
+                              IsChecked="{Binding IsCooker}"/>
+                    <TextBlock Text="Я повар" 
+                               Margin="0, -10"
+                               Style="{StaticResource AuthorizationTextBlock}"/>
+                </TextBlock>
+                <Button Height="50"
+                        Width="50"
+                        Style="{StaticResource AuthorizationButton}"
+                        Command="{Binding BackWindow}"
+                        Margin="-400, 0, 0, -50">
+                    <Image Source="pack://application:,,,/Resources/back.png"/>
+                </Button>
+                <Button Content="Регистрация"
+                        Margin="0, 20"
+                        Command="{Binding CreateAccount}">
+                    <Button.Style>
+                        <Style TargetType="Button"
+                               BasedOn="{StaticResource AuthorizationButton}">
+                        <Style.Triggers>
+                                <Trigger Property="IsEnabled"
+                                     Value="False">
+                                    <Setter Property="Background"
+                                            Value="{DynamicResource buttonDisabled}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

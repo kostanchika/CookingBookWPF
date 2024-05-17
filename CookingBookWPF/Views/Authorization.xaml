@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="CookingBookWPF.Views.Authorization"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CookingBookWPF.Views" 
+             xmlns:viewmodels="clr-namespace:CookingBookWPF.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" 
+             d:DesignWidth="1390"
+             Margin="-50, 0, 0, 0"
+             Background="{DynamicResource defaultBackground}"
+             DataContext="{StaticResource authVM}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0"
+                Background="{DynamicResource defaultAccentColor}">
+            <StackPanel>
+                <Image Source="pack://application:,,,/Resources/logo.png"
+                       Height="400"
+                       Width="400"
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                <TextBlock Text="Добро пожаловать!"
+                           FontFamily="Comic Sans MS"
+                           FontSize="40"
+                           TextAlignment="Center"/>
+                <TextBlock Text="У вас ещё нет аккаунта?"
+                           Margin="0, 50, 0, 0"
+                           FontFamily="Comic Sans MS"
+                           FontSize="40"
+                           TextAlignment="Center"/>
+                <Button Content="Зарегистрироваться"
+                        FontSize="30"
+                        Height="60"
+                        Width="400"
+                        Margin="0, 10, 0, 0"
+                        Command="{Binding OpenRegistration}"
+                        Style="{StaticResource AuthorizationButton}"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1"
+                Background="{DynamicResource defaultColor}"
+                Padding="20">
+            <StackPanel HorizontalAlignment="Center"
+                        Width="500"
+                        Height="500">
+                <TextBlock Text="Вход"
+                           FontFamily="Verdana"
+                           FontSize="40"
+                           TextAlignment="Center"
+                           Margin="0, 0, 0, 30"/>
+                <TextBlock FontSize="30" 
+                           FontFamily="Verdana"
+                           Foreground="{DynamicResource defaultTextHelpColor}"
+                           Text="Логин"/>
+                <TextBox FontSize="40" 
+                         Margin="0, 10, 0, 10"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding LoginingUser.Login}"
+                         MaxLength="23"
+                         d:Text="Логин"
+                         FontWeight="Regular"
+                         Style="{StaticResource DefaultTextBox}"/>
+                <TextBlock Text="{Binding LoginError}"
+                           Style="{StaticResource AuthorizationError}"/>
+                <TextBlock FontSize="30"
+                           FontFamily="Verdana"
+                           Foreground="{DynamicResource defaultTextHelpColor}"
+                           Text="Пароль"/>
+                <TextBox FontSize="40" 
+                         Style="{StaticResource DefaultTextBox}"
+                         Text="{Binding LoginingUser.Password}"
+                         MaxLength="23"
+                         FontWeight="Regular"
+                         d:Text="кулинария"
+                         FontFamily="pack://application:,,,/Resources/#password"
+                         Margin="0, 10, 0, 10"
+                         VerticalContentAlignment="Bottom"
+                         Padding="5"/>
+                <TextBlock Text="{Binding PasswordError}" Style="{StaticResource AuthorizationError}"/>
+                <Button Content="Войти"
+                        Command="{Binding Login}"
+                        Style="{StaticResource AuthorizationButton}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
